@@ -1,0 +1,105 @@
+.item-showcase {
+    background: #FFF;
+    border: 1px solid #F0F0F0;
+    border-radius: 2px;
+    margin: 0 5px 10px;
+    height: 560px;
+    box-shadow: 1px 1px 15px 5px #ccc;
+    position: relative;
+    width: 320px;
+}
+
+.item-showcase h4 {
+    margin: 5px 8px;
+    color: #c60707;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+    width: 95%;
+    position: absolute;
+}
+
+.item-showcase h4 span {
+    display: block;
+    font-size: 17px;
+    margin-top: 55px;
+    color:#000;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.item-showcase h4 span::after {
+    content: '';
+    width: 25px;
+    background: #666;
+    border-radius: 5px;
+    height: 4px;
+    position: absolute;
+    top:20px;
+    margin-left: -25px;
+}
+
+.item-showcase img {
+    width: 100%;
+    margin: 0px auto;
+}
+
+.item-showcase .product-description {
+    width: 90%;
+    margin: 10px auto 0;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    font-size: 14px;
+    color:#666
+}
+
+.item-showcase .product-description .price {
+    color: #bfa10b;
+    margin-top: 100px;
+    background: #101010;
+    box-shadow: 0px 3px 21px -8px #ffd700;
+    width: 70%;
+    margin-left: 15%;
+    border-radius: 3px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 7px 0px;
+}
+
+.item-showcase .product-description .price span {
+    font-size: 30px;    
+    color: #ffd700;
+}
+
+.item-showcase .product-description button {
+    margin-top: 20px;
+    font-family: 'Lato', sans-serif;
+    color: #f7c0c0;
+    font-weight: bold;
+    font-size: 25px;
+    text-transform: uppercase;
+    padding: 10px 10px 10px 20px;
+    background: linear-gradient(45deg, #c60707, #840909);
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.item-showcase .product-description button::after {
+    content: '';
+    width: 4px;
+    background: #bfa10b;
+    border-radius: 5px;
+    height: 42px;
+    position: absolute;
+    margin-left: -30px;
+    margin-top: -6px;
+}
+
+.item-showcase .product-description button svg {
+    margin-left: 30px;
+    color: #ffd700;
+}

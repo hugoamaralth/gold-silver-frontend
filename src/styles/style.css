@@ -1,0 +1,80 @@
+@import url("slick.css");
+@import url("slick-theme.css");
+@import url('https://fonts.googleapis.com/css?family=Lato|Quicksand|Baloo+Bhai&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    outline: none;
+}
+
+html , body {
+    height: 100%;
+    width: 100%;
+    padding-bottom: 60px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+h1 , h2 , h3 , h4 , h5 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: normal;
+}
+
+h3::after{
+    content : ' ';
+    display: block;
+    width: 12px;
+    border-radius: 10px;
+    height: 4px;
+    background-color: #c60707;
+}
+
+button {
+    cursor: pointer;
+}
+
+#app {
+    width: 100%;
+}
+.main {
+    width: 100%;
+    position: absolute;
+}
+.logo {
+    cursor: pointer;
+}
+
+.pages {
+    margin-top:56px;
+}
+
+.breadcrumb {
+    background: rgba(255,215,0,.3);
+    padding: 10px;
+    color:#333;
+    font-family: 'Lato', sans-serif;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 1000px) { 
+    .pages {
+        margin-top: 122px;
+    }
+    /* body, html {
+        overflow-x: hidden;
+    } */
+}
