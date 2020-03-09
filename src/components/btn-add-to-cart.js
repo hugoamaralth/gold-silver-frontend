@@ -41,7 +41,7 @@ export default class BtnCart extends React.Component  {
                     this.changeText();
                 }}>
                     <span className="price">
-                        <span>R$</span>{price.split(',')[0]}<span>,{price.split(',')[1]}</span>
+                        <span>R$</span>{price.split(',')[0]}<span>,00</span>
                     </span>
                     <span>
                         {this.state.txt}

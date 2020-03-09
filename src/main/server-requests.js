@@ -1,15 +1,16 @@
 import axios from 'axios';
 
-const URL_SERVER = 'http://192.168.1.7:3003/api/';
+//const URL_SERVER = 'http://localhost/gold-silver-backend/api/';
+const URL_SERVER = 'http://eletricagoldsilver.com.br/api/';
 
 export async function productById(id){
-    const ret = await axios.get(`${URL_SERVER}product?_id=${id}`);
+    const ret = await axios.get(`${URL_SERVER}product/?id=${id}`);
     return ret.data[0];
 }
 
 export async function productList(amount){
     amount = amount ? amount : 0;
-    const ret = await axios.get(`${URL_SERVER}product?limit=${amount}`);
+    const ret = await axios.get(`${URL_SERVER}product/?limit=${amount}`);
     return shuffle(ret.data);
 }
 
@@ -21,7 +22,7 @@ export async function productListFilter(data){
         if(data.filters[f] === null) continue;
         if(f === "prices"){
             if(data.filters[f].min === 0 || data.filters[f].max === 0) continue;
-            allFilters += `&price__gte=${data.filters[f].min}&price__lte=${data.filters[f].max}`; 
+            allFilters += `&priceMin=${data.filters[f].min}&priceMax=${data.filters[f].max}`; 
             continue;
         }
         if(f === "name"){
@@ -30,7 +31,7 @@ export async function productListFilter(data){
         }
         allFilters += `&${f}=${data.filters[f]}`
     }
-    let ret = await axios.get(`${URL_SERVER}product?&limit=${data.amount}${allFilters}`);
+    let ret = await axios.get(`${URL_SERVER}product/?&limit=${data.amount}${allFilters}`);
 
     if(data.dataSearch){
         return makeSearchResults(ret.data);
@@ -46,10 +47,10 @@ function makeSearchResults(data){
         max: 0
     };
     data.forEach(prod => {
-        if(brands[prod.marca] === undefined){
-            brands[prod.marca] = 1;
+        if(brands[prod.brand] === undefined){
+            brands[prod.brand] = 1;
         } else {
-            brands[prod.marca]++;
+            brands[prod.brand]++;
         }
         if(categories[prod.category] === undefined){
             categories[prod.category] = 1;

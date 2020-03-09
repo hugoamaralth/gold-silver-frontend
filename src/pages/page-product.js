@@ -85,7 +85,9 @@ class ProductPage extends React.Component {
         })
         .then(() => {
             productListFilter({
-                category: this.state.prod.category,
+                filters:{
+                    category: this.state.prod.category,
+                },
                 shuffle: true
             }).then(data => {
                 this.setState({
@@ -101,7 +103,7 @@ class ProductPage extends React.Component {
         for (let prod in this.state.relatedProds) {
             let p = this.state.relatedProds[prod];
             p.image = `../${p.image}`
-            ret.push(<ProductShowcase prod={p} key={p._id} />);
+            ret.push(<ProductShowcase prod={p} key={p.id} />);
         }
         return ret;
     }

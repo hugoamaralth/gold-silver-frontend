@@ -134,7 +134,7 @@ export default class Search extends React.Component {
         const products = this.state.products;
         for (const prod in products) {
             const p = products[prod];
-            ret.push(<ProductShowcase prod={p} key={p._id} handlerAddToBasket={this.handlerAddToBasket} />);
+            ret.push(<ProductShowcase prod={p} key={p.id} handlerAddToBasket={this.handlerAddToBasket} />);
         }
         return ret;
     }
@@ -144,7 +144,7 @@ export default class Search extends React.Component {
         for (let f in this.state.selectedFilters) {
             const filter = this.state.selectedFilters[f];
             switch (f) {
-                case "brand": ret.marca = (filter === null) ? null : filter;
+                case "brand": ret.brand = (filter === null) ? null : filter;
                     break;
                 case "categorie": ret.category = (filter === null) ? null : filter;
                     break;
@@ -304,7 +304,7 @@ export default class Search extends React.Component {
                     <div className="products">
                         <div className="header">
                             <h2>{this.state.amount > 0 ? this.state.amount + " produtos encontrados" : "Nenenhum produto encontrado. Limpe os filtros e refaça sua busca"}</h2>
-                            <div className="sort-select">
+                            {/* <div className="sort-select">
                                 Ordernar produtos por:
                                 <select onChange={this.handlerChangeSort} value={this.state.selectedFilters.sort}>
                                     <option value="name">Nome</option>
@@ -313,7 +313,7 @@ export default class Search extends React.Component {
                                     <option value="price">Preço (menor para maior)</option>
                                     <option value="-price">Preço (maior para menor)</option>
                                 </select>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="cards">
                             {this.makeProducts()}

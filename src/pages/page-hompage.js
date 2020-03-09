@@ -12,11 +12,11 @@ export default class HomePage extends React.Component {
     state = {
         producsNews: {
             data: [],
-            limit: 11
+            limit: 5
         },
         producsBestSellers: {
             data: [],
-            limit: 11
+            limit: 5
         }
     };
     constructor(props) {
@@ -30,7 +30,7 @@ export default class HomePage extends React.Component {
         const products = this.state[region].data;
         for (const prod in products) {
             const p = products[prod];
-            ret.push(<ProductShowcase prod={p} key={p._id} handlerAddToBasket={this.handlerAddToBasket} />);
+            ret.push(<ProductShowcase prod={p} key={p.id} handlerAddToBasket={this.handlerAddToBasket} />);
         }
         return ret;
     }
@@ -55,8 +55,9 @@ export default class HomePage extends React.Component {
                 },
             })
         });
-    }
 
+    }
+    
     render() {
         const slides = [
             {
