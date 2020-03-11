@@ -1,16 +1,15 @@
 import axios from 'axios';
+import { URL_SERVER } from '../main/vars';
 
-//const URL_SERVER = 'http://localhost/gold-silver-backend/api/';
-const URL_SERVER = 'http://eletricagoldsilver.com.br/api/';
 
 export async function productById(id){
-    const ret = await axios.get(`${URL_SERVER}product/?id=${id}`);
+    const ret = await axios.get(`${URL_SERVER}/api/product/?id=${id}`);
     return ret.data[0];
 }
 
 export async function productList(amount){
     amount = amount ? amount : 0;
-    const ret = await axios.get(`${URL_SERVER}product/?limit=${amount}`);
+    const ret = await axios.get(`${URL_SERVER}/api/product/?limit=${amount}`);
     return shuffle(ret.data);
 }
 
@@ -26,12 +25,12 @@ export async function productListFilter(data){
             continue;
         }
         if(f === "name"){
-            allFilters += `&${f}__regex=/^${data.filters[f]}/i`;
+            allFilters += `&search=${data.filters[f]}`;
             continue;
         }
         allFilters += `&${f}=${data.filters[f]}`
     }
-    let ret = await axios.get(`${URL_SERVER}product/?&limit=${data.amount}${allFilters}`);
+    let ret = await axios.get(`${URL_SERVER}/api/product/?&limit=${data.amount}${allFilters}`);
 
     if(data.dataSearch){
         return makeSearchResults(ret.data);
@@ -57,6 +56,7 @@ function makeSearchResults(data){
         } else {
             categories[prod.category]++;
         }
+        prod.price = parseFloat(prod.price);
         if(prices.min === 0){
             prices.min = prod.price;
             prices.max = prod.price;

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../styles/product-showcase.css';
+import { URL_SERVER } from '../main/vars';
 
 export default (props) => {
     let price = props.prod.price.toLocaleString('pt-br',{minimumFractionDigits:2});
@@ -11,7 +12,7 @@ export default (props) => {
     price = <div>R$<span>{price[0]}</span>,{price[1]}</div>;
     return (
         <div className="item-showcase">
-            <img src={props.prod.image} />
+            <img src={`${URL_SERVER}/pics/products/${props.prod.image}`} />
             <h4>
                 {props.prod.name.trim()}
                 <span>

@@ -103,8 +103,6 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: 13px;
-    float: right;
-    margin: 0 auto;
     color:#101010;
     right: 20px;
     letter-spacing: 1px;
@@ -136,5 +134,8 @@
     }
     .search-page .sideBar {
         width: calc(100% - 20px);
+    }
+    .search-page .products .sort-select select {
+        margin: 0 auto;
     }
 }

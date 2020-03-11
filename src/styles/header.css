@@ -8,6 +8,7 @@
     width: calc(100% - 20px);
     z-index: 5;
     top:0;
+    justify-content: space-around;
     transition: 0.4s;
 }
 

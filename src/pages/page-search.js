@@ -41,7 +41,7 @@ export default class Search extends React.Component {
         pricesMax: 'pa'
     }
 
-    initialOrder = "name";
+    initialOrder = "str_name";
 
     constructor(props) {
         super(props);
@@ -304,16 +304,16 @@ export default class Search extends React.Component {
                     <div className="products">
                         <div className="header">
                             <h2>{this.state.amount > 0 ? this.state.amount + " produtos encontrados" : "Nenenhum produto encontrado. Limpe os filtros e refaça sua busca"}</h2>
-                            {/* <div className="sort-select">
+                            <div className="sort-select">
                                 Ordernar produtos por:
                                 <select onChange={this.handlerChangeSort} value={this.state.selectedFilters.sort}>
-                                    <option value="name">Nome</option>
-                                    <option value="-marca">Marca</option>
-                                    <option value="category">Categoria</option>
-                                    <option value="price">Preço (menor para maior)</option>
-                                    <option value="-price">Preço (maior para menor)</option>
+                                    <option value="str_name">Nome</option>
+                                    <option value="str_brand">Marca</option>
+                                    <option value="str_category">Categoria</option>
+                                    <option value="flo_price">Preço (menor para maior)</option>
+                                    <option value="flo_price-desc">Preço (maior para menor)</option>
                                 </select>
-                            </div> */}
+                            </div>
                         </div>
                         <div className="cards">
                             {this.makeProducts()}
