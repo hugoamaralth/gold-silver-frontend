@@ -134,7 +134,7 @@ export default class Search extends React.Component {
         const products = this.state.products;
         for (const prod in products) {
             const p = products[prod];
-            ret.push(<ProductShowcase prod={p} key={p.id} handlerAddToBasket={this.handlerAddToBasket} />);
+            ret.push(<ProductShowcase prod={p} key={p.id} />);
         }
         return ret;
     }
@@ -175,15 +175,17 @@ export default class Search extends React.Component {
             let filterByBrand = [];
             for (let b in data.brands) {
                 filterByBrand.push({
-                    name: b,
-                    amount: data.brands[b]
+                    name: data.brands[b].name,
+                    amount: data.brands[b].amount,
+                    id: data.brands[b].id
                 });
             }
             let filterByCategory = [];
             for (let b in data.categories) {
                 filterByCategory.push({
-                    name: b,
-                    amount: data.categories[b]
+                    name: data.categories[b].name,
+                    amount: data.categories[b].amount,
+                    id: data.categories[b].id
                 });
             }
             this.setState({
@@ -279,7 +281,7 @@ export default class Search extends React.Component {
                             this.handlerChangeText(evt)
                         }
                         } />
-                        <div className="filter-by-price">
+                        {/* <div className="filter-by-price">
                             <h4>Filtrar por preço</h4>
                             <div className="price-inputs">
                                 <div>
@@ -297,13 +299,13 @@ export default class Search extends React.Component {
                                     />
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <ListOfFilters title="Filtrar por marca" data={this.state.filterByBrand} onClick={(evt) => { this.filterByBrand(evt) }} />
                         <ListOfFilters title="Filtrar por categoria" data={this.state.filterByCategory} onClick={(evt) => { this.filterByCategorie(evt) }} />
                     </div>
                     <div className="products">
                         <div className="header">
-                            <h2>{this.state.amount > 0 ? this.state.amount + " produtos encontrados" : "Nenenhum produto encontrado. Limpe os filtros e refaça sua busca"}</h2>
+                            <h2>{this.state.amount > 0 ? this.state.amount + " produtos encontrados" : "Nenhum produto encontrado. Limpe os filtros e refaça sua busca"}</h2>
                             <div className="sort-select">
                                 Ordernar produtos por:
                                 <select onChange={this.handlerChangeSort} value={this.state.selectedFilters.sort}>

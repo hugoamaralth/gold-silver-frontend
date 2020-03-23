@@ -6,13 +6,17 @@ import '../styles/product-showcase.css';
 import { URL_SERVER } from '../main/vars';
 
 export default (props) => {
-    let price = props.prod.price.toLocaleString('pt-br',{minimumFractionDigits:2});
-    price = price.split(',');
-    price[1] = (price.length > 1) ? price[1] : '00';
+    props.prod.price = props.prod.price.toString();
+    let price = props.prod.price.toLocaleString('pt-br', { minimumFractionDigits: 2 });
+    price = price.split(".");
+    price = price.length > 1 ? price : [price[0], "00"];
+    price[1] = price[1].length > 1 ? price[1] : price[1].toString() + "0";
     price = <div>R$<span>{price[0]}</span>,{price[1]}</div>;
     return (
         <div className="item-showcase">
-            <img src={`${URL_SERVER}/pics/products/${props.prod.image}`} />
+            <div className="image">
+                <img src={`${URL_SERVER}/pics/products/${props.prod.image[0]}`} />
+            </div>
             <h4>
                 {props.prod.name.trim()}
                 <span>

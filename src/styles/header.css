@@ -21,6 +21,11 @@
     margin-right: 15px;
 }
 
+.header-site-mobile .welcome {
+    color:#ffd700;
+    font-family: 'Quicksand', sans-serif;
+}
+
 @media (min-width: 1000px) { 
     .header-site-mobile .logo {
         width: 200px;

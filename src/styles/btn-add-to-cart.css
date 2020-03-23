@@ -5,7 +5,7 @@
     justify-content: space-between;
     font-family: 'Quicksand', sans-serif;
     background-color: #007B39;
-    width: 260px;
+    width: 270px;
     border:4px solid #007B39;
     border-radius: 10px;
     font-size: 17px;
@@ -22,7 +22,7 @@
 }
 
 .btn-add-to-cart > span span {
-    font-size: 10px;
+    font-size: 15px;
 }
 
 .btn-add-to-cart .price {

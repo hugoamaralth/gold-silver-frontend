@@ -47,7 +47,7 @@
     color:#ffd700
 }
 
-.menu .content ul li:first-child {
+.menu .content ul li.home {
     border-top: none;
 }
 
@@ -59,7 +59,7 @@
     font-size: 45px;
     top: auto !important;
     right: auto !important;
-    margin-left: -45px;
+    margin-left: -50px;
     background-color: #bf0a0a;
 }
 
@@ -83,6 +83,8 @@
     width: 90%;
     margin:0 5%
 }
+
+
 
 @media (min-width: 1000px) { 
     .menu.closed {
@@ -122,8 +124,14 @@
         padding: 0;
     }
 
-    .menu .content ul li:first-child {
+    .menu .content ul > li.home {
         display: none;
     }
-
+    .menu .content ul section {
+        display: flex;
+        justify-content: space-between;
+    }
+    .menu .content ul section li {
+        padding: 0 30px;
+    }
 }

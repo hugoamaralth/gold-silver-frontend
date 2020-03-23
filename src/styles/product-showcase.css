@@ -10,7 +10,7 @@
 }
 
 .item-showcase h4 {
-    margin: 5px 8px;
+    margin: 320px 8px 0;
     color: #c60707;
     font-weight: bold;
     text-align: center;
@@ -42,14 +42,23 @@
     margin-left: -25px;
 }
 
-.item-showcase img {
+.item-showcase .image {
+    height: 300px;
     width: 100%;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+}
+
+.item-showcase img {
+    max-height: 100%;
+    max-width: 100%;
     margin: 0px auto;
 }
 
 .item-showcase .product-description {
     width: 90%;
-    margin: 10px auto 0;
+    margin: 420px auto 0;
     font-family: 'Lato', sans-serif;
     text-align: center;
     font-size: 14px;

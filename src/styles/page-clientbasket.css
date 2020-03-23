@@ -1,0 +1,84 @@
+.basket-client h2 {
+    margin: 10px 10px 20px;
+}
+
+.basket-client .buttons { 
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0;
+}
+
+.basket-client .buttons button { 
+    border: none;
+    padding: 15px 20px;
+    font-size: 20px;
+    color: #FFF;
+    border-radius: 7px;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #bc9e07, #dbb808);
+}
+
+.basket-client .buttons .finished {
+    background: linear-gradient(45deg, #007B39, #0daa54);
+}
+
+.basket-client .total { 
+    text-align: right;
+    padding: 30px;
+    font-size: 25px;
+    color: #007B39;
+}
+.basket-client .total b {
+    font-size: 30px;
+ }
+
+.basket-client table {
+    width: 100%;
+    border: none;
+    font-size: 14px;
+}
+
+.basket-client .item-basket {
+    align-items: center;
+    justify-content: space-between;
+    background: #FFF;
+}
+.basket-client .item-basket th {
+    padding: 15px 0;
+    background: #eee;
+    color: #666;
+    text-transform: uppercase;
+
+}
+.basket-client .item-basket td {
+    border-bottom: 1px solid #F0F0F0;
+    padding: 5px;
+    text-align: center;
+}
+.basket-client .item-basket .item-basket-image {
+    width: 80px;
+}
+.basket-client .item-basket .item-basket-image img {
+    width: 80px;
+}
+
+.basket-client .item-basket td.item-basket-amount {
+    font-size: 16px;
+    font-weight: bold;
+}
+.basket-client .item-basket .item-basket-name {
+    width: 220px;
+}
+
+.basket-client .item-basket .item-basket-unicprice , .basket-client .item-basket .item-basket-totalprice {
+    width: 75px;    
+    font-weight: bold;
+}
+.basket-client .item-basket .item-basket-remove button {
+    border: none;
+    border-radius: 5px;
+    padding: 7px;
+    color: #efc4c4;
+    background: linear-gradient(45deg, #bf0a0a, #840707);
+    font-weight: bold;
+}

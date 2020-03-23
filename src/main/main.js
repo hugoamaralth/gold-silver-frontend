@@ -1,9 +1,14 @@
 import React from 'react';
-import { Route, Switch} from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 import HomePage from '../pages/page-hompage';
 import ProductPage from '../pages/page-product';
 import Search from '../pages/page-search';
+import SingUpPage from '../pages/page-singup';
+import LoginPage from '../pages/page-login';
+import LogoutPage from '../pages/page-logout';
+import PagePayment from '../pages/page-payment';
+import PagePanelClient from '../pages/page-painel-client';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
@@ -17,18 +22,16 @@ export default class Main extends React.Component {
         this.openCloseMenu = this.openCloseMenu.bind(this);
         this.addToBasket = this.addToBasket.bind(this);
         this.removeFromBasket = this.removeFromBasket.bind(this);
+        const basket = JSON.parse(localStorage.getItem("basket_gs")) ? JSON.parse(localStorage.getItem("basket_gs")).basket : [];
         this.state = {
             menuOpened : false,
-            basket : []
+            basket
         }
     }
-    removeFromBasket(item){
-        let basket = [];
-        for(let b in this.state.basket){
-            if(this.state.basket[b].id !== item.id){
-                basket.push(this.state.basket[b]);
-            }
-        }
+    async removeFromBasket(id){
+        let { basket } = this.state;
+        basket = basket.filter(it=> it.id !== id);
+        localStorage.setItem('basket_gs', JSON.stringify({basket}));
         this.setState({
             ...this.state,
             basket
@@ -38,10 +41,12 @@ export default class Main extends React.Component {
         item.amount = amount;
         let basket = this.state.basket;
         basket.push(item);
+        localStorage.setItem('basket_gs', JSON.stringify({basket}));
         this.setState({
             ...this.state,
             basket
         });
+        window.location = '/cliente/meupainel/cesta'
     }
     openCloseMenu(){
         this.setState(
@@ -56,12 +61,17 @@ export default class Main extends React.Component {
         return(
             <div className="main">
                 <Header />
-
                 <div className="pages">
                     <Switch>
-                        <Route exact path='/' component={()=>(<HomePage handlerAddToBasket={this.addToBasket} />)} />
+                        <Route exact path='/' component={()=>(<HomePage />)} />
                         <Route path='/produto/:id' component={()=>(<ProductPage handlerAddToBasket={this.addToBasket} />)} />
                         <Route path='/buscar' component={()=>(<Search />)} />
+                        <Route path='/cliente/cadastro' component={()=>(<SingUpPage />)} />
+                        <Route path='/cliente/login' component={()=>(<LoginPage />)} />
+                        <Route path='/cliente/sair' component={()=>(<LogoutPage />)} />
+                        <Route path='/cliente/meupainel*' component={()=>(<PagePanelClient handlerRemoveItemBasket={this.removeFromBasket} basket={this.state.basket} />)} />
+                        <Route path='/pagamento' component={()=>(<PagePayment basket={this.state.basket} />)} />
+                        <Route path='*' exact={true} component={()=>(<HomePage />)} />
                     </Switch>
                 </div>
 

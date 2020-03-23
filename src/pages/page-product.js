@@ -2,6 +2,7 @@ import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import BtnCart from '../components/btn-add-to-cart';
 import Slider from "react-slick";
+import { URL_SERVER } from "../main/vars";
 import { slidersConfig } from '../core/configSliders';
 import ProductShowcase from '../components/product-showcase';
 import { productById, productListFilter } from '../main/server-requests';
@@ -36,33 +37,16 @@ class ProductPage extends React.Component {
     }
 
     getProdImages() {
-        let productPictures = []
-        this.state.prod.image = this.state.prod.image.split("../").join("");
-        if (this.state.prod.othersImages == undefined) {
+        let productPictures = [];
+        this.state.prod.image.map(image => {
             productPictures.push({
-                original: `../${this.state.prod.image}`,
-                thumbnail: `../${this.state.prod.image}`
+                original: `${URL_SERVER}/pics/products/${image}`,
+                thumbnail: `${URL_SERVER}/pics/products/${image}`
             });
-        } else {
-            for (let i = 0; i <= this.state.prod.othersImages; i++) {
-                if (i === 0) {
-                    productPictures.push({
-                        original: `../${this.state.prod.image}`,
-                        thumbnail: `../${this.state.prod.image}`
-                    });
-                } else {
-                    let img = this.state.prod.image.split('.');
-                    img = img[0] + '_' + (i + 1) + '.' + img[1];
-                    productPictures.push({
-                        original: `../${img}`,
-                        thumbnail: `../${img}`
-                    })
-                }
-            }
-        }
+        });
         this.setState({
             ...this.state,
-            prod : {
+            prod: {
                 ...this.state.prod,
                 productPictures
             }
@@ -72,6 +56,7 @@ class ProductPage extends React.Component {
     getDatas() {
         const id = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
         productById(id).then(data => {
+            console.log(data);
             this.setState({
                 ...this.state,
                 prod: {
@@ -80,32 +65,45 @@ class ProductPage extends React.Component {
                 }
             })
         })
-        .then(()=>{
-            this.getProdImages();
-        })
-        .then(() => {
-            productListFilter({
-                filters:{
-                    category: this.state.prod.category,
-                },
-                shuffle: true
-            }).then(data => {
-                this.setState({
-                    ...this.state,
-                    relatedProds: data
+            .then(() => {
+                this.getProdImages();
+            })
+            .then(() => {
+                productListFilter({
+                    filters: {
+                        category: this.state.prod.category_id,
+                    },
+                    shuffle: true
+                }).then(data => {
+                    console.log(data);
+                    this.setState({
+                        ...this.state,
+                        relatedProds: data.filter(p => p.id !== this.id)
+                    })
                 })
             })
-        })
     }
 
     makeProducts() {
         let ret = [];
         for (let prod in this.state.relatedProds) {
             let p = this.state.relatedProds[prod];
-            p.image = `../${p.image}`
             ret.push(<ProductShowcase prod={p} key={p.id} />);
         }
         return ret;
+    }
+
+    get slidersConfig() {
+        const amount = this.state.relatedProds.length;
+        if(amount === 0) return {};
+        let ret = JSON.parse(JSON.stringify(slidersConfig));
+        ret.slidesToShow = (ret.slidesToShow > amount) ? amount : ret.slidesToShow;
+        ret.responsive.map(r => {
+            r.settings.slidesToShow = (r.settings.slidesToShow > amount) ? amount : r.settings.slidesToShow;
+        })
+        return {
+            ...ret
+        }
     }
 
     render() {
@@ -127,10 +125,10 @@ class ProductPage extends React.Component {
                         <p>{this.state.prod.description}</p>
                     </div>
                 </div>
-                <div className="relatedProducts">
+                <div className="relatedProducts" style={{display: (this.state.relatedProds.length > 0) ? 'block' : 'none'}}>
                     <h3>Produtos relacionados</h3>
-                    <Slider {...slidersConfig}>
-                        {this.makeProducts(4)}
+                    <Slider {...this.slidersConfig}>
+                        {this.makeProducts()}
                     </Slider>
                 </div>
             </div>

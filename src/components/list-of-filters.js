@@ -5,9 +5,9 @@ function makeList(props){
     let ret = [];
     props.data.forEach((item, k) => {
         ret.push(
-            <li key={k} dataid={item.name} onClick={props.onClick} className={item.sel ? "selected" : ''}>
-                <span dataid={item.name}>{item.name}</span> 
-                <span className="amount" dataid={item.name}>{item.amount}</span>
+            <li key={k} dataid={item.id} onClick={props.onClick} className={item.sel ? "selected" : ''}>
+                <span dataid={item.id}>{item.name}</span> 
+                <span className="amount" dataid={item.id}>{item.amount}</span>
             </li>);
     });
     return ret;

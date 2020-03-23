@@ -1,0 +1,29 @@
+.page-painel-client {
+    display: flex;
+    padding: 20px;
+    font-family: 'Quicksand', sans-serif;
+    min-height: 500px;
+}
+
+.page-painel-client .menu-painel-client {
+    width: 200px;
+    
+}
+
+.page-painel-client .menu-painel-client ul li {
+    padding: 7px 15px;
+    border-bottom: 1px solid #000;
+}
+.page-painel-client .menu-painel-client ul a {
+    color: #c60707;
+}
+.page-painel-client .menu-painel-client ul a:last-child li {
+    border: none;
+}
+.page-painel-client .content-painel-client {
+    margin-left: 20px;
+    background: #F6F6F6;
+    padding: 10px 30px;
+    width: calc(100% - 220px);
+    border-radius: 5px;
+}
