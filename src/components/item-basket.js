@@ -6,7 +6,7 @@ export default props => {
     return(
     <tr className="item-basket">
         <td className="item-basket-image">
-            <img src={`${URL_SERVER}/pics/products/${props.data.image[0]}`} />
+            <img alt="" src={`${URL_SERVER}/pics/products/${props.data.image[0]}`} />
         </td>
         <td className="item-basket-name">
             <Link to={`/produto/${props.data.id}`}>

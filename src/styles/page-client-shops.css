@@ -1,0 +1,46 @@
+.client-shop {
+    padding-top: 20px;
+}
+
+.client-shop .itens {
+    margin-top: 30px;
+}
+
+.client-shop .itens h4 {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.client-shop .itens table {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.client-shop .itens table th {
+    color: #bf0a0a;
+    padding-bottom: 20px;
+}
+
+.client-shop .itens table td {
+    border-bottom: 1px solid #CCC;
+    border-top: 1px solid #EEE;
+    padding: 10px;
+    margin: 0;
+    font-size: 15px;
+    text-align: center;
+}
+
+.client-shop .itens table tr:first-child td {
+    border-top: none;
+}
+.client-shop .itens table tr:last-child td {
+    border-bottom: none;
+}
+
+.client-shop .totals {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 50px;
+}

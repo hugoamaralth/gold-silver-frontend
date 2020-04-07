@@ -38,6 +38,10 @@
     border: 1px solid #CCC
 }
 
+.content-singup .inputs > label input:read-only {
+    background: #EEE;
+}
+
 .content-singup .inputs > button {
     width: 200px;
     margin-top: 20px;
@@ -51,11 +55,3 @@
     font-weight: bold;
 }
 
-.content-singup .msgs-user {
-    width: 90%;
-    text-align: center;
-    background-color: #F8C900;
-    padding: 8px 0px;
-    margin: 50px 0;
-    border-radius: 5px;
-}

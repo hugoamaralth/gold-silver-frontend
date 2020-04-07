@@ -1,0 +1,45 @@
+h1 {
+    margin-top: 20px;
+}
+
+.table-sales {
+    width: 90%;
+    border-spacing: 0;
+    margin: 40px auto;
+}
+
+.table-sales th {
+    color:#c60707;
+    padding-bottom: 20px;
+}
+
+.table-sales tr:hover td {
+    background: #FFF;
+}
+
+.table-sales tr:first-child td {
+    border-top: none;
+}
+
+.table-sales tr:last-child td {
+    border-bottom: none;
+}
+
+.table-sales td {
+    border-bottom: 1px solid #CCC;
+    border-top: 1px solid #EEE;
+    padding: 10px;
+    margin: 0;
+    font-size: 15px;
+    text-align: center;
+}
+
+.table-sales td button {
+    border: none;
+    background: #ffd700;
+    padding: 7px 20px;
+    color: #000;
+    border-radius: 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+}

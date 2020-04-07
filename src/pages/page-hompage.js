@@ -19,9 +19,6 @@ export default class HomePage extends React.Component {
             limit: 5
         }
     };
-    constructor(props) {
-        super(props);
-    }
     componentWillMount() {
         this.getProducts();
     }

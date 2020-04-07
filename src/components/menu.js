@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingBasket, faUserCircle, faEnvelope, faHome, faUser, faUserPlus, faFilter, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faUserCircle, faHome, faUser, faUserPlus, faFilter, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import { isLoged } from "../main/server-requests";
 

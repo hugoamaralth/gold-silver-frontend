@@ -7,11 +7,6 @@ import IconButton from '../components/icon-button';
 import ButtonMenuMobile from '../components/button-menu-mobile';
 
 export default class FooterMobile extends React.Component {
-    constructor(props){
-        super(props);
-        
-    }
-    
     render() {
        return (
            <div className="footer-mobile">

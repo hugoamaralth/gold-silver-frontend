@@ -15,7 +15,7 @@ export default (props) => {
     return (
         <div className="item-showcase">
             <div className="image">
-                <img src={`${URL_SERVER}/pics/products/${props.prod.image[0]}`} />
+                <img alt="" src={`${URL_SERVER}/pics/products/${props.prod.image[0]}`} />
             </div>
             <h4>
                 {props.prod.name.trim()}

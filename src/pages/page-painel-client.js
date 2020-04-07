@@ -4,21 +4,22 @@ import { getAllClientData } from '../main/server-requests';
 import SingUpPage from './page-singup';
 import ListClientShops from '../components/list-client-shops';
 import PageClientBasket from './page-client-basket';
+import PageClientShops from './page-client-shops';
 import '../styles/page-painelclient.css';
 
 export default class PagePanelClient extends React.Component {
     state = {
-        page : window.location.pathname.split('/')[window.location.pathname.split('/').length - 1],
+        page: window.location.pathname.split('/')[window.location.pathname.split('/').length - 1],
         clientData: null
     }
-    constructor(props){
-        super(props);   
+    constructor(props) {
+        super(props);
         this.updatePage = this.updatePage.bind(this);
         this.getAllClientData();
     }
-    async getAllClientData(){
+    async getAllClientData() {
         const data = await getAllClientData();
-        if(data === false && this.state.page !== "cesta"){
+        if (data === false && this.state.page !== "cesta") {
             window.location = '/cliente/login'
         }
         await this.setState({
@@ -26,7 +27,7 @@ export default class PagePanelClient extends React.Component {
             clientData: data["user-data"]
         });
     }
-    async updatePage(page){
+    async updatePage(page) {
         await this.setState({
             ...this.state,
             page
@@ -38,44 +39,46 @@ export default class PagePanelClient extends React.Component {
             <div className="page-painel-client">
                 <div className="menu-painel-client">
                     <ul>
-                            <Link to='/cliente/meupainel/dados' onClick={()=>this.updatePage("dados")}>
-                        <li style={{fontWeight: (this.state.page === "dados" || this.state.page === "meupainel") ? 'bold' : 'normal'}}>
+                        <Link to='/cliente/meupainel/dados' onClick={() => this.updatePage("dados")}>
+                            <li style={{ fontWeight: (this.state.page === "dados" || this.state.page === "meupainel" || this.state.page === "") ? 'bold' : 'normal' }}>
                                 Meus dados
-                        </li>
+                            </li>
                         </Link>
-                            <Link to='/cliente/meupainel/cesta' onClick={()=>this.updatePage("cesta")}>
-                        <li style={{fontWeight: (this.state.page === "cesta") ? 'bold' : 'normal'}}>
+                        <Link to='/cliente/meupainel/cesta' onClick={() => this.updatePage("cesta")}>
+                            <li style={{ fontWeight: (this.state.page === "cesta") ? 'bold' : 'normal' }}>
                                 Minha cesta
-                        </li>
+                            </li>
                         </Link>
-                            <Link to='/cliente/meupainel/compras' onClick={()=>this.updatePage("compras")}>
-                        <li style={{fontWeight: (this.state.page === "compras") ? 'bold' : 'normal'}}>
+                        <Link to='/cliente/meupainel/compras' onClick={() => this.updatePage("compras")}>
+                            <li style={{ fontWeight: (this.state.page === "compras") ? 'bold' : 'normal' }}>
                                 Minhas compras
-                        </li>
+                            </li>
                         </Link>
-                            <Link to='/cliente/sair'>
-                        <li style={{fontWeight: (this.state.page === "") ? 'bold' : 'normal'}}>
+                        <Link to='/cliente/sair'>
+                            <li>
                                 Sair
-                        </li>
-                            </Link>
+                            </li>
+                        </Link>
                     </ul>
                 </div>
                 <div className="content-painel-client">
                     {this.getPage()}
-                   
+
                 </div>
             </div>
         )
     }
 
-    getPage(){
+    getPage() {
         let ret = null;
-        switch(this.state.page){
-            case "compras" : ret = <ListClientShops />;
+        if (this.state.clientData === null) return;
+        console.log(this.state.page);
+        switch (this.state.page) {
+            case "compras": ret = <ListClientShops idClient={this.state.clientData.id} />;
                 break;
-            case "cesta" : ret = <PageClientBasket basket={this.props.basket} handlerRemoveItemBasket={this.props.handlerRemoveItemBasket} />;
+            case "cesta": ret = <PageClientBasket basket={this.props.basket} clientData={this.state.clientData} handlerRemoveItemBasket={this.props.handlerRemoveItemBasket} />;
                 break;
-            default: ret = (this.state.clientData === null) ? '' : <SingUpPage isEdit={true} data={this.state.clientData} />;
+            default: ret = this.state.page.length > 11 ? <PageClientShops /> : <SingUpPage isEdit={true} data={this.state.clientData} />;
                 break;
         }
         return ret;

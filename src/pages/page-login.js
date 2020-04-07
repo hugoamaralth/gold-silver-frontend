@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Messager from '../components/messager';
 import { doLogin } from '../main/server-requests';
 import Loader from '../components/loader';
 import '../styles/page-login.css';
@@ -80,9 +80,7 @@ export default class LoginPage extends React.Component {
                         Senha:
                         <input type="password" onChange={e => { this.changeInputValue(e, "pass") }} value={this.state.pass} />
                     </label>
-                    <div className="msgs-user" style={{ display: (this.state.msgUser.length > 0) ? 'block' : 'none' }}>
-                        {this.state.msgUser}
-                    </div>
+                    <Messager message={this.state.msgUser} />
                     <button onClick={this.doLogin}>
                         Logar
                     </button>

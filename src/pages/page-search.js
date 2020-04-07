@@ -67,7 +67,7 @@ export default class Search extends React.Component {
                 max: 0
             }
         }
-        varsOnUrl.map(v => {
+        varsOnUrl.forEach(v => {
             if (v.length === 0) return;
             v = v.split('=');
             if (v[0] === 'pi') {

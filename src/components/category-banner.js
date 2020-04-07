@@ -6,7 +6,7 @@ import '../styles/category-banner.css';
 
 export default (props) => (
     <div className="category-banner">
-        <img src={props.image} />
+        <img src={props.image} alt="" />
         <div className="mask" style={{backgroundColor: "#"+props.color}}></div>
         <h2>{props.text}</h2>
         <button>Ver Produtos <FontAwesomeIcon icon={faChevronRight} /></button>

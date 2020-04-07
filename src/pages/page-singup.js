@@ -1,7 +1,8 @@
 import React from 'react';
 import InputMask from 'react-input-mask';
 
-import { saveClient, checkEmailExists, updateClient } from '../main/server-requests';
+import Messager from '../components/messager';
+import { saveClient, getAddressByCep, checkEmailExists, updateClient } from '../main/server-requests';
 import Loader from '../components/loader';
 import '../styles/page-singup.css';
 
@@ -14,6 +15,13 @@ export default class SingUpPage extends React.Component {
             phone: '',
             password: '',
             confirmPassword: '',
+            cep: '',
+            state: '',
+            city: '',
+            district: '',
+            address: '',
+            num: '',
+            complement: '',
         },
         msgUser: '',
         isLoading: false
@@ -23,6 +31,7 @@ export default class SingUpPage extends React.Component {
         super(props);
         this.changeInputValue = this.changeInputValue.bind(this);
         this.validForm = this.validForm.bind(this);
+        this.blurCep = this.blurCep.bind(this);
     }
 
     componentDidMount() {
@@ -31,14 +40,22 @@ export default class SingUpPage extends React.Component {
     }
 
     updateStates() {
+        const { data } = this.props;
         this.setState({
             ...this.state,
             client: {
                 ...this.state.client,
-                name: this.props.data.name,
-                lastName: this.props.data.lastName,
-                email: this.props.data.email,
-                phone: this.props.data.phone
+                name: data.name || '',
+                lastName: data.lastName || '',
+                email: data.email || '',
+                phone: data.phone || '',
+                cep: data.cep || '',
+                state: data.state || '',
+                city: data.city || '',
+                district: data.district || '',
+                address: data.address || '',
+                num: data.num || '',
+                complement: data.complement || ''
             }
         });
     }
@@ -109,6 +126,21 @@ export default class SingUpPage extends React.Component {
                 }
             }
 
+            if (this.state.client.city.length === 0 || this.state.client.cep.length !== 9) {
+                this.setState({
+                    ...this.state,
+                    msgUser: "Preencha corretamente o cep"
+                })
+                return;
+            }
+            if (this.state.client.num.length === 0) {
+                this.setState({
+                    ...this.state,
+                    msgUser: "Preencha corretamente o número"
+                })
+                return;
+            }
+
             this.setState({
                 ...this.state,
                 msgUser: ""
@@ -137,7 +169,7 @@ export default class SingUpPage extends React.Component {
 
         if (this.props.isEdit) {
             const save = await updateClient(this.state.client)
-            if(save.data.status === 1){
+            if (save.data.status === 1) {
                 this.setState({
                     ...this.state,
                     isLoading: false,
@@ -159,6 +191,68 @@ export default class SingUpPage extends React.Component {
         }
     }
 
+    async checkAndGetCep(e) {
+        await this.setState({
+            ...this.state,
+            client: {
+                ...this.state.client,
+                cep: e.target.value
+            }
+        });
+        if (this.state.client.cep.length === 9) {
+            this.setState({
+                ...this.state,
+                isLoading: true
+            });
+            const address = await getAddressByCep(this.state.client.cep);
+            this.setState({
+                ...this.state,
+                isLoading: false,
+            });
+            if (address.erro === true) {
+                this.setState({
+                    ...this.state,
+                    msgUser: 'O cep digitado não é válido.',
+                    client: {
+                        ...this.state.client,
+                        state: '',
+                        city: '',
+                        address: '',
+                        district: '',
+                        complement: ''
+                    }
+                });
+            } else {
+                this.setState({
+                    ...this.state,
+                    msgUser: '',
+                    client: {
+                        ...this.state.client,
+                        state: address.uf,
+                        city: address.localidade,
+                        address: address.logradouro,
+                        district: address.bairro,
+                        complement: address.complemento,
+                    }
+                });
+            }
+        }
+    }
+
+    blurCep() {
+        if (this.state.client.cep.length !== 9) {
+            this.setState({
+                ...this.state,
+                msgUser: "Preencha corretamente o CEP."
+            });
+        } else {
+            this.setState({
+                ...this.state,
+                msgUser: ""
+            });
+        }
+    }
+
     render() {
         return (
             <div className={"content-singup " + (this.props.isEdit ? 'edit' : '')}>
@@ -166,6 +260,7 @@ export default class SingUpPage extends React.Component {
                     Preencha o formulário abaixo para fazer o cadastro. É rápido e simples.
                 </h2>
                 <div className="inputs">
+
                     <label>
                         Nome:
                         <input type="text" onChange={e => { this.changeInputValue(e, "name") }} value={this.state.client.name} />
@@ -190,9 +285,33 @@ export default class SingUpPage extends React.Component {
                         Confirmar Senha:
                         <input type="password" onChange={e => { this.changeInputValue(e, "confirmPassword") }} value={this.state.client.confirmPassword} />
                     </label>
-                    <div className="msgs-user" style={{ display: (this.state.msgUser.length > 0) ? 'block' : 'none' }}>
-                        {this.state.msgUser}
-                    </div>
+                    <label>
+                        Cep:
+                        <InputMask mask="99999-999" maskChar="" onBlur={this.blurCep} onChange={e => { this.checkAndGetCep(e) }} value={this.state.client.cep} />
+                    </label>
+                    <label>
+                        Cidade:
+                        <input type="text" readOnly placeholder="digite primeiro o cep" value={this.state.client.state.length > 0 ? this.state.client.state + ' - ' + this.state.client.city : ''} />
+                    </label>
+                    <label>
+                        Logradouro:
+                        <input type="text" readOnly placeholder="digite primeiro o cep" value={this.state.client.address} />
+                    </label>
+                    <label>
+                        Bairro:
+                        <input type="text" readOnly placeholder="digite primeiro o cep" value={this.state.client.district} />
+                    </label>
+                    <label>
+                        Número:
+                        <input type="text" value={this.state.client.num} onChange={e => { this.changeInputValue(e, "num") }} />
+                    </label>
+                    <label>
+                        Complemento:
+                        <input type="text" value={this.state.client.complement} onChange={e => { this.changeInputValue(e, "complement") }} />
+                    </label>
+
+                    <Messager message={this.state.msgUser} />
+
                     <button onClick={this.validForm}>
                         {(this.props.isEdit ? 'Salvar' : 'Cadastrar')}
                     </button>

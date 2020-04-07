@@ -21,9 +21,6 @@ class ProductPage extends React.Component {
 
     id = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
 
-    constructor(props) {
-        super(props);
-    }
     componentDidMount() {
         this.setState({
             ...this.state,
@@ -38,7 +35,7 @@ class ProductPage extends React.Component {
 
     getProdImages() {
         let productPictures = [];
-        this.state.prod.image.map(image => {
+        this.state.prod.image.forEach(image => {
             productPictures.push({
                 original: `${URL_SERVER}/pics/products/${image}`,
                 thumbnail: `${URL_SERVER}/pics/products/${image}`
@@ -75,7 +72,6 @@ class ProductPage extends React.Component {
                     },
                     shuffle: true
                 }).then(data => {
-                    console.log(data);
                     this.setState({
                         ...this.state,
                         relatedProds: data.filter(p => p.id !== this.id)
@@ -98,7 +94,7 @@ class ProductPage extends React.Component {
         if(amount === 0) return {};
         let ret = JSON.parse(JSON.stringify(slidersConfig));
         ret.slidesToShow = (ret.slidesToShow > amount) ? amount : ret.slidesToShow;
-        ret.responsive.map(r => {
+        ret.responsive.forEach(r => {
             r.settings.slidesToShow = (r.settings.slidesToShow > amount) ? amount : r.settings.slidesToShow;
         })
         return {
